@@ -40,11 +40,19 @@ function lessonsListSet(){
     .then(response=>response.json())
     .then(data2=>{
       lessonsList=data2.values;
-      var lessonsListBox=document.getElementById('lessons-list');
+      var lessonsListBox=document.getElementById('lessons_list');
       lessonsList.forEach(row=>{
-        lessonsListBox.innerHTML+=`<div class="shadow-boxing">
+        lessonsListBox.innerHTML+=`<div class="shadow-boxing" data-lesson=${row}>
           <h2 style="display:inline-block;">${row[0]}</h2>
         </div>`;
+      });
+      document.querySelectorAll('.shadow-boxing').forEach(element=>{
+        element.addEventListener('click',function(){
+          const lesson=this.getAttribute('data-lesson');
+          lessonsList.innerHTML='';
+          //history.pushState(null,'',`?lang=${lang}`);
+          lessonStart(lesson);
+        });
       });
     });
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
@@ -53,4 +61,7 @@ function lessonsListSet(){
       wordsList=data3.values;
     });
   });
+}
+function lessonStart(lesson){
+  
 }
