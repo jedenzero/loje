@@ -26,6 +26,7 @@ function langsListSet(){
         const lang=this.getAttribute('data-lang');
         langsListBox.innerHTML='';
         history.pushState(null,'',`?lang=${lang}`);
+        lessonsListSet();
       });
     });
   });
@@ -34,7 +35,7 @@ function lessonsListSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
   .then(data1=>{
-    let lang=data1.values[data.values.findIndex(new URL(window.location.href).searchParams.get('lang'))][3];
+    let lang=data1.values[data1.values.findIndex(new URL(window.location.href).searchParams.get('lang'))][3];
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/lessons!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
     .then(data2=>{
