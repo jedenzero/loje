@@ -6,6 +6,7 @@ else{
 }
 var langsList=[];
 var lessonsList=[];
+var wordsList=[];
 function langsListSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
@@ -23,11 +24,32 @@ function langsListSet(){
     document.querySelectorAll('.shadow-boxing').forEach(element=>{
       element.addEventListener('click',function(){
         const lang=this.getAttribute('data-lang');
+        langsListBox.innerHTML='';
         history.pushState(null,'',`?lang=${lang}`);
       });
     });
-  })
+  });
 }
 function lessonsListSet(){
-  
+  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
+  .then(response=>response.json())
+  .then(data1=>{
+    let lang=data1.values[data.values.findIndex(new URL(window.location.href).searchParams.get('lang'))][3];
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/lessons!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
+    .then(response=>response.json())
+    .then(data2=>{
+      lessonsList=data2.values;
+      var lessonsListBox=document.getElementById('lessons-list');
+      lessonsList.forEach(row=>{
+        lessonsListBox.innerHTML+=`<div class="shadow-boxing">
+          <h2 style="display:inline-block;">${row[0]}</h2>
+        </div>`;
+      });
+    });
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
+    .then(response=>response.json())
+    .then(data3=>{
+      wordsList=data3.values;
+    });
+  });
 }
