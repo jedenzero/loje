@@ -63,5 +63,14 @@ function lessonsListSet(){
   });
 }
 function lessonStart(lesson){
-  
+	var passage=document.getElementById('passage');
+  if(lesson[5]){
+		passage.innerHTML=`<div>${lesson[5]}</div><i class="fi fi-br-cross" style="margin:0 auto;"></i>`
+		document.querySelector('#passage').addEventListener('click',function(){
+			passage.innerHTML='';	
+		});
+  }
+	if(lesson[1]||lesson[2]||lesson[3]){
+		
+	}
 }
