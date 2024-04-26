@@ -54,7 +54,7 @@ function lessonsListSet(){
           const lesson=this.getAttribute('data-lesson');
           lessonsListBox.innerHTML='';
           //history.pushState(null,'',`?lang=${lang}`);
-          lessonStart(JSON.parse(lesson));
+          lessonStart(JSON.parse(lesson+'"]'));
         });
       });
     });
