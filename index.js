@@ -49,7 +49,7 @@ function lessonsListSet(){
       document.querySelectorAll('.shadow-boxing').forEach(element=>{
         element.addEventListener('click',function(){
           const lesson=this.getAttribute('data-lesson');
-          lessonsList.innerHTML='';
+          lessonsListBox.innerHTML='';
           //history.pushState(null,'',`?lang=${lang}`);
           lessonStart(lesson);
         });
