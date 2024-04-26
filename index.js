@@ -45,7 +45,7 @@ function lessonsListSet(){
       lessonsList=data2.values;
       var lessonsListBox=document.getElementById('lessons_list');
       lessonsList.forEach(row=>{
-        lessonsListBox.innerHTML+=`<div class="shadow-boxing" data-lesson=${row}>
+        lessonsListBox.innerHTML+=`<div class="shadow-boxing" data-lesson=${JSON.stringify(row)}>
           <h2 style="display:inline-block;">${row[0]}</h2>
         </div>`;
       });
@@ -54,7 +54,7 @@ function lessonsListSet(){
           const lesson=this.getAttribute('data-lesson');
           lessonsListBox.innerHTML='';
           //history.pushState(null,'',`?lang=${lang}`);
-          lessonStart(lesson.split(','));
+          lessonStart(JSON.parse(lesson));
         });
       });
     });
@@ -100,8 +100,9 @@ function lessonStart(lesson){
   }
   num++;
   }
+  console.log(`toMemo : ${toMemo}`)
   if(lesson[5]){
-		passage.innerHTML=`<div style="width:300px;margin:0 auto;color:#282828;">${lesson[5]}<span id="ok" style="margin-top:50px;text-align:center;"><i class="fi fi-br-cross"></i></span></div>`;
+		passage.innerHTML=`<div style="width:300px;margin:0 auto;color:#282828;">${lesson[5]}<div id="ok" style="margin-top:25px;text-align:center;"><i class="fi fi-br-cross"></i></div></div>`;
 		document.querySelector('#ok').addEventListener('click',function(){
 			passage.innerHTML='';	
       memo(toMemo);
@@ -116,7 +117,7 @@ function memo(toMemo){
     return;
   }
   else{
-    passage.innerHTML=`<div style="margin:0 auto;color:#282828;"><div class="shadow-boxing" style="text-align:center;"><h2 style="text-align:center;">${toMemo[0][0]}</h2><br>${toMemo[0][1]}</div><span id="next" style="margin-top:50px;text-align:center;"><i class="fi fi-br-angle-small-right"></i></span></div>`;
+    passage.innerHTML=`<div style="margin:0 auto;color:#282828;"><div class="shadow-boxing" style="text-align:center;"><h2 style="text-align:center;">${toMemo[0][0]}</h2><br>${toMemo[0][1]}</div><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-angle-right"></i></div></div>`;
     document.querySelector('#next').addEventListener('click',function(){
       document.getElementById('passage').innerHTML='';
       memo(toMemo.slice(1));
