@@ -7,6 +7,9 @@ else{
 var langsList=[];
 var lessonsList=[];
 var wordsList=[];
+var variantsList=[];
+var sentencesList=[];
+
 function langsListSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
@@ -36,7 +39,7 @@ function lessonsListSet(){
   .then(response=>response.json())
   .then(data1=>{
     let lang=data1.values[data1.values.findIndex(row=>row[0]===new URL(window.location.href).searchParams.get('lang'))][3];
-    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/lessons!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/lessons!A:F?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
     .then(data2=>{
       lessonsList=data2.values;
@@ -51,26 +54,72 @@ function lessonsListSet(){
           const lesson=this.getAttribute('data-lesson');
           lessonsListBox.innerHTML='';
           //history.pushState(null,'',`?lang=${lang}`);
-          lessonStart(lesson);
+          lessonStart(JSON.parse(`$[{lesson}]`));
         });
       });
     });
-    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!A:B?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
     .then(data3=>{
       wordsList=data3.values;
+    });
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!C:E?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
+    .then(response=>response.json())
+    .then(data4=>{
+      variantsList=data4.values;
+    });
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!F:G?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
+    .then(response=>response.json())
+    .then(data5=>{
+      sentencesList=data5.values;
     });
   });
 }
 function lessonStart(lesson){
 	var passage=document.getElementById('passage');
+  var toMemo=[];
+  var num=1;
+  while(num<=3){
+  if(lesson[num]!=='0'){
+    var i=Number(lesson[num].split('-')[0])-1;
+    if(lesson[num].split('-')[1]){
+      var j=Number(lesson[num].split('-')[1])-1;
+    }
+    else{
+      var j=i;
+    }
+    switch(num){
+      case 1 : var type=wordsList; break;
+      case 2 : var type=variantsList.slice(1,3); break;
+      case 3 : var type=sentencesList.slice(1,3); break;
+    }
+    while(i<=j){
+      toMemo.push(type[i])
+      i++;
+    }
+  }
+  num++;
+  }
   if(lesson[5]){
-		passage.innerHTML=`<div>${lesson[5]}</div><i class="fi fi-br-cross" style="margin:0 auto;"></i>`
-		document.querySelector('#passage').addEventListener('click',function(){
+		passage.innerHTML=`<div style="width:300px;margin:0 auto;color:#282828;">${lesson[5]}<span id="ok" style="margin-top:50px;text-align:center;"><i class="fi fi-br-cross"></i></span></div>`;
+		document.querySelector('#ok').addEventListener('click',function(){
 			passage.innerHTML='';	
+      memo(toMemo);
 		});
   }
-	if(lesson[1]||lesson[2]||lesson[3]){
-		
-	}
+  else{
+    memo(toMemo);
+  }
+}
+function memo(toMemo){
+  if(toMemo.length===0){
+    return;
+  }
+  else{
+    passage.innerHTML=`<div style="margin:0 auto;color:#282828;"><div class="shadow-boxing" style="text-align:center;"><h2 style="text-align:center;">${toMemo[0][0]}</h2><br>${toMemo[0][1]}</div><span id="next" style="margin-top:50px;text-align:center;"><i class="fi fi-br-angle-small-right"></i></span></div>`;
+    document.querySelector('#next').addEventListener('click',function(){
+      document.getElementById('passage').innerHTML='';
+      memo(toMemo.slice(1));
+    });
+  }
 }
