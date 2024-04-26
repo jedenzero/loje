@@ -90,8 +90,8 @@ function lessonStart(lesson){
     }
     switch(num){
       case 1 : var type=wordsList; break;
-      case 2 : var type=variantsList.map((row)=>row.slice(1,3)); break;
-      case 3 : var type=sentencesList.map((row)=>row.slice(1,3)); break;
+      case 2 : var type=variantsList.map((row)=>row.slice(0,3)); break;
+      case 3 : var type=sentencesList.map((row)=>row.slice(0,3)); break;
     }
     while(i<=j){
       toMemo.push(type[i])
