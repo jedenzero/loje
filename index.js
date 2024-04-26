@@ -45,16 +45,16 @@ function lessonsListSet(){
       lessonsList=data2.values;
       var lessonsListBox=document.getElementById('lessons_list');
       lessonsList.forEach(row=>{
-        lessonsListBox.innerHTML+=`<div class="shadow-boxing" data-lesson=${JSON.stringify(row)}>
+        lessonsListBox.innerHTML+=`<div class="shadow-boxing" data-lesson=${row[0]}>
           <h2 style="display:inline-block;">${row[0]}</h2>
         </div>`;
       });
       document.querySelectorAll('.shadow-boxing').forEach(element=>{
         element.addEventListener('click',function(){
-          const lesson=this.getAttribute('data-lesson');
+          const lesson=lessonsList[lessonsList.findIndex(row=>row[0]===this.getAttribute('data-lesson'))];
           lessonsListBox.innerHTML='';
           //history.pushState(null,'',`?lang=${lang}`);
-          lessonStart(JSON.parse(lesson+'"]'));
+          lessonStart(lesson);
         });
       });
     });
