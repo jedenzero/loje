@@ -184,7 +184,7 @@ function write(pas,ans){
   document.getElementById('input').innerHTML=`<div id="ans" class="option-boxing" style="padding-top:5px;"><input id="text" type="text"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`;
   document.querySelector('#check').addEventListener('click',checkClick);
   function checkClick(){
-    if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '')===ans.replace(/[\.,\?\!\s]/g, '')){
+    if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '').toLowerCase()===ans.replace(/[\.,\?\!\s]/g, '').toLowerCase()){
       document.getElementById('ans').className='correct-boxing';
     }
     else{
