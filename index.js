@@ -98,6 +98,9 @@ function lessonStart(lesson){
       i++;
     }
   }
+  else{
+    limit.push(0);
+  }
   num++;
   }
   console.log(`toMemo : ${toMemo}`);
