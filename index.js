@@ -152,7 +152,7 @@ function solve(){
         if(toSolve[type].length>=4){
           var opt=[];
           n=0;
-          opt.push(i[1]);
+          opt.push(i[rev]);
           while(n<3){
             var ran=Math.floor(Math.random()*limit[type]);
             while(opt.includes(wordsList[type][ran][1-rev])){
