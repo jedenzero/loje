@@ -182,7 +182,8 @@ function solve(){
 function write(pas,ans){
   document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;color:#282828;">${pas}</h2></div>`;
   document.getElementById('input').innerHTML=`<div id="ans" class="option-boxing" style="padding:0;"><input id="text" type="text"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`;
-  document.querySelector('#check').addEventListener('click',function(){
+  document.querySelector('#check').addEventListener('click',checkClick);
+  function checkClick(){
     if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '')===ans.replace(/[\.,\?\!\s]/g, '')){
       document.getElementById('ans').className='correct-boxing';
     }
@@ -190,10 +191,13 @@ function write(pas,ans){
       document.getElementById('ans').className='incorrect-boxing';
     }
     this.innerHTML=`<p style="text-align:center;">${ans}</p><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
-    document.querySelector('#next').addEventListener('click',function(){
-      document.getElementById('ans').className='option-boxing';
-      solve();
-    });
+    document.querySelector('#check').removeEventListener('click',checkClick);
+    document.querySelector('#next').addEventListener('click',nextClick);
+  });
+  function nextClick(){
+    document.querySelector('#next').removeEventListener('click',nextClick);
+    document.getElementById('ans').className='option-boxing';
+    solve();
   });
 }
 function choose(pas,opt,ans){
