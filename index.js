@@ -9,7 +9,7 @@ var lessonsList=[];
 var wordsList=[[],[],[]];
 var limit=[];
 var toSolve=[[],[],[]];
-var seen=[];
+var seen=[[],[],[]];
 var remain=0;
 function langsListSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
@@ -143,11 +143,11 @@ function solve(){
       type=(type+1)%3;
     }
     var index=Math.floor(Math.random()*limit[type]);
-    if(seen.includes(toSolve[type][index])){
+    while(seen.includes(toSolve[type][index])&&toSolve[type].length>seen[type].length){
       index=Math.floor(Math.random()*limit[type]);
     }
     var i=toSolve[type][index];
-    seen.push(i);
+    seen[type].push(i);
     var j='';
     var n=0;
     var rev=Math.floor(Math.random()*2);
