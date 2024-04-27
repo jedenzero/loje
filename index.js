@@ -9,7 +9,9 @@ var lessonsList=[];
 var wordsList=[];
 var variantsList=[];
 var sentencesList=[];
-
+var limit=[];
+var toSolve=[[],[],[]];
+var remain=0;
 function langsListSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
@@ -79,6 +81,7 @@ function lessonStart(lesson){
 	var passage=document.getElementById('passage');
   var toMemo=[];
   var num=1;
+  remain=Number(lesson[4]);
   while(num<=3){
   if(lesson[num]!=='0'){
     var i=Number(lesson[num].split('-')[0])-1;
@@ -88,19 +91,23 @@ function lessonStart(lesson){
     else{
       var j=i;
     }
+    limit.push(j);
     switch(num){
       case 1 : var type=wordsList; break;
       case 2 : var type=variantsList.map((row)=>row.slice(0,3)); break;
       case 3 : var type=sentencesList.map((row)=>row.slice(0,3)); break;
     }
     while(i<=j){
-      toMemo.push(type[i])
+      toSolve[num-1].push(type[i]);
+      if(num===1){
+        toMemo.push(type[i]);
+      }
       i++;
     }
   }
   num++;
   }
-  console.log(`toMemo : ${toMemo}`)
+  console.log(`toMemo : ${toMemo}`);
   if(lesson[5]){
 		passage.innerHTML=`<div style="width:300px;margin:0 auto;color:#282828;">${lesson[5]}<div id="ok" style="margin-top:25px;text-align:center;"><i class="fi fi-br-cross"></i></div></div>`;
 		document.querySelector('#ok').addEventListener('click',function(){
@@ -114,7 +121,7 @@ function lessonStart(lesson){
 }
 function memo(toMemo){
   if(toMemo.length===0){
-    return;
+    solve();
   }
   else{
     passage.innerHTML=`<div style="margin:0 auto;color:#282828;"><div class="shadow-boxing" style="text-align:center;"><h2 style="text-align:center;">${toMemo[0][0]}</h2><br>${toMemo[0][1]}</div><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-angle-right"></i></div></div>`;
@@ -123,4 +130,60 @@ function memo(toMemo){
       memo(toMemo.slice(1));
     });
   }
+}
+function solve(){
+  if(remain===0){
+    document.getElementById('passage')='끝';
+  }
+  else{
+    var flat=[].concat(...toSolve[0].slice(0,limit[0]),...toSolve[1].slice(0,limit[1]),...toSolve[2].slice(0,limit[2]));
+    var i=flat[Math.floor(Math.random()*flat.length)];
+    var j='';
+    var n=0;
+    while(n<3){
+      if(toSolve[n].includes(i)){
+        var type=toSolve[n];
+        break;
+      }
+      n++;
+    }
+    //뒤집을지 여부
+    switch(Math.floor(Math.random()*2)){
+      case 0 : break;
+      case 1 :
+        j=i[0];
+        i[0]=i[1];
+        i[1]=j;
+        break;
+    }
+    //문제 유형
+    switch(Math.floor(Math.random()*2)){
+      case 0 : write(i[0],i[1]); break;
+      case 1:
+        if(limit[toSolve.indexOf(type)]>=4){
+          var opt=[];
+          n=0;
+          opt.push(i[1]);
+          while(n<4){
+            var ran=Math.floor(Math.random()*limit[toSolve.indexOf(type)]);
+            while(!opt.includes(type[ran])){
+              ran=Math.floor(Math.random()*limit[toSolve.indexOf(type)]);
+            }
+            opt.push(type[ran]);
+          }
+          choose(i[0],opt,i[1]);
+        }
+        else{
+          write(i[0],i[1]);
+        }
+        break;
+    }
+    remain--;
+  }
+}
+function write(pas,ans){
+  
+}
+function choose(pas,opt,ans){
+  
 }
