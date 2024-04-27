@@ -130,6 +130,7 @@ function memo(toMemo){
 function solve(){
   if(remain===0){
     document.getElementById('passage').textContent='끝';
+    document.getElementById('input').textContent='';
   }
   else{
     var type=Math.floor(Math.random()*3);
@@ -144,16 +145,6 @@ function solve(){
     var j='';
     var n=0;
     var rev=Math.floor(Math.random()*2);
-    
-    //뒤집을지 여부
-    switch(rev){
-      case 0 : break;
-      case 1 :
-        j=i[0];
-        i[0]=i[1];
-        i[1]=j;
-        break;
-    }
     //문제 유형
     switch(Math.floor(Math.random()*2)){
       case 0 : write(i[rev],i[1-rev]); break;
