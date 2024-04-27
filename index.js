@@ -6,9 +6,7 @@ else{
 }
 var langsList=[];
 var lessonsList=[];
-var wordsList=[];
-var variantsList=[];
-var sentencesList=[];
+var wordsList=[[],[],[]];
 var limit=[];
 var toSolve=[[],[],[]];
 var remain=0;
@@ -63,17 +61,17 @@ function lessonsListSet(){
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!A:B?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
     .then(data3=>{
-      wordsList=data3.values;
+      wordsList[0]=data3.values;
     });
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!C:E?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
     .then(data4=>{
-      variantsList=data4.values;
+      wordsList[1]=data4.values;
     });
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!F:G?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
     .then(data5=>{
-      sentencesList=data5.values;
+      wordsList[2]=data5.values;
     });
   });
 }
@@ -92,15 +90,10 @@ function lessonStart(lesson){
       var j=i;
     }
     limit.push(j);
-    switch(num){
-      case 1 : var type=wordsList; break;
-      case 2 : var type=variantsList.map((row)=>row.slice(0,3)); break;
-      case 3 : var type=sentencesList.map((row)=>row.slice(0,3)); break;
-    }
     while(i<=j){
-      toSolve[num-1].push(type[i]);
+      toSolve[num-1].push(wordsList[num-1][i]);
       if(num===1){
-        toMemo.push(type[i]);
+        toMemo.push(wordsList[num-1][i]);
       }
       i++;
     }
@@ -133,22 +126,24 @@ function memo(toMemo){
 }
 function solve(){
   if(remain===0){
-    document.getElementById('passage')='끝';
+    document.getElementById('passage').textContent='끝';
   }
   else{
-    var flat=[].concat(...toSolve[0].slice(0,limit[0]),...toSolve[1].slice(0,limit[1]),...toSolve[2].slice(0,limit[2]));
-    var i=flat[Math.floor(Math.random()*flat.length)];
+    var type=Math.floor(Math.random()*3);
+    if(limit[type]===0){
+      type=(type+1)%3;
+    }
+    if(limit[type]===0){
+      type=(type+1)%3;
+    }
+    var index=Math.floor(Math.random()*limit[type]);
+    var i=toSolve[type][index];
     var j='';
     var n=0;
-    while(n<3){
-      if(toSolve[n].includes(i)){
-        var type=toSolve[n];
-        break;
-      }
-      n++;
-    }
+    var rev=Math.floor(Math.random()*2);
+    
     //뒤집을지 여부
-    switch(Math.floor(Math.random()*2)){
+    switch(rev){
       case 0 : break;
       case 1 :
         j=i[0];
@@ -158,23 +153,23 @@ function solve(){
     }
     //문제 유형
     switch(Math.floor(Math.random()*2)){
-      case 0 : write(i[0],i[1]); break;
+      case 0 : write(i[rev],i[1-rev]); break;
       case 1:
-        if(limit[toSolve.indexOf(type)]>=4){
+        if(toSolve[type].length>=4){
           var opt=[];
           n=0;
           opt.push(i[1]);
-          while(n<4){
-            var ran=Math.floor(Math.random()*limit[toSolve.indexOf(type)]);
-            while(!opt.includes(type[ran])){
-              ran=Math.floor(Math.random()*limit[toSolve.indexOf(type)]);
+          while(n<3){
+            var ran=Math.floor(Math.random()*limit[type]);
+            while(opt.includes(wordsList[type][ran][1-rev])){
+              ran=Math.floor(Math.random()*limit[type]);
             }
-            opt.push(type[ran]);
+              opt.push(wordsList[type][ran][1-rev]);
           }
-          choose(i[0],opt,i[1]);
+          choose(i[rev],opt,i[1-rev]);
         }
         else{
-          write(i[0],i[1]);
+          write(i[rev],i[1-rev]);
         }
         break;
     }
