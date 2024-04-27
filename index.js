@@ -167,7 +167,8 @@ function solve(){
             while(opt.includes(wordsList[type][ran][1-rev])){
               ran=Math.floor(Math.random()*limit[type]);
             }
-              opt.push(wordsList[type][ran][1-rev]);
+            opt.push(wordsList[type][ran][1-rev]);
+            n++;
           }
           choose(i[rev],opt,i[1-rev]);
         }
