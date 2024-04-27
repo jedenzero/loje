@@ -201,5 +201,27 @@ function write(pas,ans){
   }
 }
 function choose(pas,opt,ans){
-  
+  var ran=Math.floor(Math.random()*4);
+  opt=[...opt.slice(1).slice(0,ran),ans,...opt.slice(1).slice(ran)];
+  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;color:#282828;">${pas}</h2></div>`;
+  document.getElementById('input').innerHTML='';
+  while(opt.length>0){
+    document.getElementById('input').innerHTML+=`<div id="${opt[0]}" class="option-boxing">${opt[0]}</div>`;
+    opt=opt.slice(1);
+  }
+  document.querySelectorAll('.option-boxing').forEach(element=>{
+    element.addEventListener('click',function(){
+      if(this.textContent!==ans){
+        this.className='incorrect-boxing';
+      }
+      document.getElementById(ans).className='correct-boxing';
+      document.getElementById('input').innerHTML+=`<div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
+      document.querySelector('#next').addEventListener('click',nextClick);
+      element.removeEventListener('click',arguments.callee);
+    });
+  });
+  function nextClick(){
+    document.querySelector('#next').removeEventListener('click',nextClick);
+    solve();
+  }
 }
