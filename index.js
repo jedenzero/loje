@@ -152,7 +152,6 @@ function solve(){
         if(toSolve[type].length>=4){
           var opt=[];
           n=0;
-          opt.push(i[rev]);
           while(n<3){
             var ran=Math.floor(Math.random()*limit[type]);
             while(opt.includes(wordsList[type][ran][1-rev])){
@@ -194,7 +193,7 @@ function write(pas,ans){
 }
 function choose(pas,opt,ans){
   var ran=Math.floor(Math.random()*4);
-  opt=[...opt.slice(1).slice(0,ran),ans,...opt.slice(1).slice(ran)];
+  opt=[...opt.slice(0,ran),ans,...opt.slice(ran)];
   document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;color:#282828;">${pas}</h2></div>`;
   document.getElementById('input').innerHTML='';
   while(opt.length>0){
