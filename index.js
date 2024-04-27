@@ -180,9 +180,9 @@ function solve(){
   }
 }
 function write(pas,ans){
-  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;">${pas}</h2></div>`;
-  document.getElementById('input').innerHTML=`<div id="next" style="width:100px;"></div>`
-  document.querySelector('#next').addEventListener('click',function(){
+  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;color:#282828;">${pas}</h2></div>`;
+  document.getElementById('input').innerHTML=`<div class="option-boxing"><input type="text"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`
+  document.querySelector('#check').addEventListener('click',function(){
     document.getElementById('passage').innerHTML='';
     document.getElementById('input').innerHTML='';
     solve();
