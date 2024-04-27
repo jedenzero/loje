@@ -154,7 +154,7 @@ function solve(){
           n=0;
           while(n<3){
             var ran=Math.floor(Math.random()*limit[type]);
-            while(opt.includes(wordsList[type][ran][1-rev])){
+            while(opt.includes(wordsList[type][ran][1-rev])||wordsList[type][ran][1-rev]===i[1-rev]){
               ran=Math.floor(Math.random()*limit[type]);
             }
             opt.push(wordsList[type][ran][1-rev]);
