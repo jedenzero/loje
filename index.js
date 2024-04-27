@@ -80,7 +80,7 @@ function lessonStart(lesson){
 	var passage=document.getElementById('passage');
   var toMemo=[];
   var num=1;
-  seen=[];
+  seen=[[],[],[]];
   remain=Number(lesson[4]);
   while(num<=3){
   if(lesson[num]!=='0'){
@@ -143,7 +143,7 @@ function solve(){
       type=(type+1)%3;
     }
     var index=Math.floor(Math.random()*limit[type]);
-    while(seen.includes(toSolve[type][index])&&toSolve[type].length>seen[type].length){
+    while(seen[type].includes(toSolve[type][index])&&toSolve[type].length>seen[type].length){
       index=Math.floor(Math.random()*limit[type]);
     }
     var i=toSolve[type][index];
