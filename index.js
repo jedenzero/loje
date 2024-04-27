@@ -193,12 +193,12 @@ function write(pas,ans){
     this.innerHTML=`<p style="text-align:center;">${ans}</p><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
     document.querySelector('#check').removeEventListener('click',checkClick);
     document.querySelector('#next').addEventListener('click',nextClick);
-  });
+  }
   function nextClick(){
     document.querySelector('#next').removeEventListener('click',nextClick);
     document.getElementById('ans').className='option-boxing';
     solve();
-  });
+  }
 }
 function choose(pas,opt,ans){
   
