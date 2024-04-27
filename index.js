@@ -181,18 +181,18 @@ function solve(){
 }
 function write(pas,ans){
   document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;color:#282828;">${pas}</h2></div>`;
-  document.getElementById('input').innerHTML=`<div id="ans" class="option-boxing"><input type="text" style="font-size:15px;"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`;
+  document.getElementById('input').innerHTML=`<div id="ans" class="option-boxing"><input id="text" type="text"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`;
   document.querySelector('#check').addEventListener('click',function(){
-    if(document.getElementById('input').textContent.replace(/[\.,\?\!\s]/g, '')===ans.replace(/[\.,\?\!\s]/g, '')){
+    if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '')===ans.replace(/[\.,\?\!\s]/g, '')){
       document.getElementById('ans').className='correct-boxing';
     }
     else{
       document.getElementById('ans').className='incorrect-boxing';
     }
-    this.innerHTML='<div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>';
-  });
-  document.querySelector('#next').addEventListener('click',function(){
-    solve();
+    this.innerHTML=`<p style="text-align:center;">${ans}</p><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
+    document.querySelector('#next').addEventListener('click',function(){
+      solve();
+    });
   });
 }
 function choose(pas,opt,ans){
