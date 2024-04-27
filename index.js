@@ -9,6 +9,7 @@ var lessonsList=[];
 var wordsList=[[],[],[]];
 var limit=[];
 var toSolve=[[],[],[]];
+var seen=[];
 var remain=0;
 function langsListSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
@@ -79,6 +80,7 @@ function lessonStart(lesson){
 	var passage=document.getElementById('passage');
   var toMemo=[];
   var num=1;
+  seen=[];
   remain=Number(lesson[4]);
   while(num<=3){
   if(lesson[num]!=='0'){
@@ -141,7 +143,11 @@ function solve(){
       type=(type+1)%3;
     }
     var index=Math.floor(Math.random()*limit[type]);
+    if(seen.includes(toSolve[type][index])){
+      index=Math.floor(Math.random()*limit[type]);
+    }
     var i=toSolve[type][index];
+    seen.push(i);
     var j='';
     var n=0;
     var rev=Math.floor(Math.random()*2);
