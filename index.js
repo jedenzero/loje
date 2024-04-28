@@ -136,7 +136,7 @@ function memo(toMemo){
 }
 function solve(){
   if(remain===0){
-    document.getElementById('passage').textContent=`<div class="shadow-boxing">총 <b>${cor+inc}</b>개의 문제 중 <b>${cor}</b>개를 맞추셨습니다!</div>`;
+    document.getElementById('passage').innerHTML=`<div class="shadow-boxing">총 <b>${cor+inc}</b>개의 문제 중 <b>${cor}</b>개를 맞추셨습니다!</div>`;
     document.getElementById('input').textContent='';
   }
   else{
