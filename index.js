@@ -136,10 +136,10 @@ function solve(){
   }
   else{
     var type=Math.floor(Math.random()*3);
-    if(limit[type]===0){
+    if(limit[type].length===0){
       type=(type+1)%3;
     }
-    if(limit[type]===0){
+    if(limit[type].length===0){
       type=(type+1)%3;
     }
     var index=Math.floor(Math.random()*limit[type]);
