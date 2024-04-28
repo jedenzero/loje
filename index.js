@@ -142,9 +142,10 @@ function solve(){
     if(limit[type]===0){
       type=(type+1)%3;
     }
-    var i=toSolve[type][Math.floor(Math.random()*toSolve.length)];
-    if(noSeen.length>0){
-      i=noSeen[type][Math.floor(Math.random()*noSeen.length)];
+    var i=toSolve[type][Math.floor(Math.random()*toSolve[type].length)];
+    if(noSeen[type].length>0){
+      i=noSeen[type][Math.floor(Math.random()*noSeen[type].length)];
+      noSeen[type]=[...noSeen[type].slice(0,noSeen[type].indexOf(i)),...noSeen[type].slice(noSeen[type].indexOf(i)+1)];
     }
     var j='';
     var n=0;
