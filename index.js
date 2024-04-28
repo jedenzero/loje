@@ -145,6 +145,7 @@ function solve(){
     document.querySelector('#next').addEventListener('click',nextClick);
     function nextClick(){
       document.querySelector('#next').removeEventListener('click',nextClick);
+      document.getElementById('passage').textContent='';
       lessonsListSet();
     }
   }
