@@ -116,7 +116,7 @@ function lessonStart(lesson){
   noSeen=JSON.parse(JSON.stringify(toSolve));
   console.log(`toMemo : ${toMemo}`);
   if(lesson[5]){
-		passage.innerHTML=`<div style="width:300px;margin:0 auto;color:#282828;">${lesson[5]}<div id="ok" style="margin-top:25px;text-align:center;"><i class="fi fi-br-cross"></i></div></div>`;
+		passage.innerHTML=`<div style="width:300px;margin:0 auto;color:#282828;">${lesson[5]}<div id="ok" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div></div>`;
 		document.querySelector('#ok').addEventListener('click',function(){
 			passage.innerHTML='';	
       memo(toMemo);
