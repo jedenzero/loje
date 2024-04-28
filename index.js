@@ -9,7 +9,7 @@ var lessonsList=[];
 var wordsList=[[],[],[]];
 var limit=[];
 var toSolve=[[],[],[]];
-var seen=[[],[],[]];
+var noSeen=[[],[],[]];
 var remain=0;
 function langsListSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
@@ -80,7 +80,6 @@ function lessonStart(lesson){
 	var passage=document.getElementById('passage');
   var toMemo=[];
   var num=1;
-  seen=[[],[],[]];
   remain=Number(lesson[4]);
   while(num<=3){
   if(lesson[num]!=='0'){
@@ -105,6 +104,7 @@ function lessonStart(lesson){
   }
   num++;
   }
+  noSeen=toSolve;
   console.log(`toMemo : ${toMemo}`);
   if(lesson[5]){
 		passage.innerHTML=`<div style="width:300px;margin:0 auto;color:#282828;">${lesson[5]}<div id="ok" style="margin-top:25px;text-align:center;"><i class="fi fi-br-cross"></i></div></div>`;
@@ -143,11 +143,11 @@ function solve(){
       type=(type+1)%3;
     }
     var index=Math.floor(Math.random()*limit[type]);
-    while(seen[type].includes(toSolve[type][index])&&toSolve[type].length>seen[type].length){
+    while(!noSeen[type].includes(toSolve[type][index])&&noSeen[type].length>0){
       index=Math.floor(Math.random()*limit[type]);
     }
     var i=toSolve[type][index];
-    seen[type].push(i);
+    noSeen[type]=[...noSeen.slice(0,noSeen[type].indexOf(i)),...noSeen.slice(noSeen[type].indexOf(i)+1)];
     var j='';
     var n=0;
     var rev=Math.floor(Math.random()*2);
