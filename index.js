@@ -142,6 +142,7 @@ function solve(){
     if(limit[type]===0){
       type=(type+1)%3;
     }
+    var index;
     if(noSeen[type].length>0){
       do{
         index=Math.floor(Math.random()*limit[type]);
