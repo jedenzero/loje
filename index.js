@@ -131,7 +131,7 @@ function memo(toMemo){
     solve();
   }
   else{
-    passage.innerHTML=`<div style="margin:0 auto;color:#282828;"><div class="shadow-boxing" style="text-align:center;"><h2 style="text-align:center;">${toMemo[0][0]}</h2><br>${toMemo[0][1]}</div><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-angle-right"></i></div></div>`;
+    passage.innerHTML=`<div style="margin:0 auto;color:#282828;"><div class="shadow-boxing" style="text-align:center;"><h2 style="text-align:center;margin-top:40px;">${toMemo[0][0]}</h2><br>${toMemo[0][1]}</div><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-angle-right"></i></div></div>`;
     document.querySelector('#next').addEventListener('click',function(){
       document.getElementById('passage').innerHTML='';
       memo(toMemo.slice(1));
@@ -190,7 +190,7 @@ function solve(){
   }
 }
 function write(pas,ans){
-  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;color:#282828;">${pas}</h2></div>`;
+  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;margin-top:25px;color:#282828;">${pas}</h2></div>`;
   document.getElementById('input').innerHTML=`<div id="ans" class="option-boxing" style="padding-top:5px;"><input id="text" type="text"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`;
   document.querySelector('#check').addEventListener('click',checkClick);
   function checkClick(){
@@ -217,7 +217,7 @@ function write(pas,ans){
 function choose(pas,opt,ans){
   var ran=Math.floor(Math.random()*4);
   opt=[...opt.slice(0,ran),ans,...opt.slice(ran)];
-  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;color:#282828;">${pas}</h2></div>`;
+  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;margin-top:25px;color:#282828;">${pas}</h2></div>`;
   document.getElementById('input').innerHTML='';
   while(opt.length>0){
     document.getElementById('input').innerHTML+=`<div id="${opt[0]}" class="option-boxing" style="padding-left:20px;">${opt[0]}</div>`;
