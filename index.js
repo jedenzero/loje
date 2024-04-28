@@ -145,7 +145,7 @@ function solve(){
     var index=Math.floor(Math.random()*limit[type]);
     while(!noSeen[type].includes(toSolve[type][index])&&noSeen[type].length>0){
       index=Math.floor(Math.random()*limit[type]);
-      console.log(`시도 : index`);
+      console.log(`시도 : ${index}`);
     }
     var i=toSolve[type][index];
     noSeen[type]=[...noSeen[type].slice(0,noSeen[type].indexOf(i)),...noSeen[type].slice(noSeen[type].indexOf(i)+1)];
