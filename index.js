@@ -136,10 +136,10 @@ function solve(){
   }
   else{
     var type=Math.floor(Math.random()*3);
-    if(limit[type].length===0){
+    if(limit[type]===0){
       type=(type+1)%3;
     }
-    if(limit[type].length===0){
+    if(limit[type]===0){
       type=(type+1)%3;
     }
     var index=Math.floor(Math.random()*limit[type]);
@@ -147,7 +147,7 @@ function solve(){
       index=Math.floor(Math.random()*limit[type]);
     }
     var i=toSolve[type][index];
-    noSeen[type]=[...noSeen.slice(0,noSeen[type].indexOf(i)),...noSeen.slice(noSeen[type].indexOf(i)+1)];
+    noSeen[type]=[...noSeen[type].slice(0,noSeen[type].indexOf(i)),...noSeen[type].slice(noSeen[type].indexOf(i)+1)];
     var j='';
     var n=0;
     var rev=Math.floor(Math.random()*2);
