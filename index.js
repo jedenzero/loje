@@ -142,9 +142,9 @@ function solve(){
     if(limit[type]===0){
       type=(type+1)%3;
     }
-    var index=Math.floor(Math.random()*limit[type]);
+    var index=Math.floor(Math.random()*(limit[type]+1));
     while(!noSeen[type].includes(toSolve[type][index])&&noSeen[type].length>0){
-      index=Math.floor(Math.random()*limit[type]);
+      index=Math.floor(Math.random()*(limit[type]+1));
       console.log(`시도 : ${index}`);
     }
     var i=toSolve[type][index];
@@ -160,9 +160,9 @@ function solve(){
           var opt=[];
           n=0;
           while(n<3){
-            var ran=Math.floor(Math.random()*limit[type]);
+            var ran=Math.floor(Math.random()*(limit[type]+1));
             while(opt.includes(wordsList[type][ran][1-rev])||wordsList[type][ran][1-rev]===i[1-rev]){
-              ran=Math.floor(Math.random()*limit[type]);
+              ran=Math.floor(Math.random()*(limit[type]+1));
             }
             opt.push(wordsList[type][ran][1-rev]);
             n++;
