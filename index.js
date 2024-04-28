@@ -11,6 +11,9 @@ var limit=[];
 var toSolve=[[],[],[]];
 var noSeen=[[],[],[]];
 var remain=0;
+var cor=0;
+var inc=0;
+
 function langsListSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
@@ -81,6 +84,8 @@ function lessonStart(lesson){
   var toMemo=[];
   var num=1;
   remain=Number(lesson[4]);
+  cor=0;
+  inc=0;
   while(num<=3){
   if(lesson[num]!=='0'){
     var i=Number(lesson[num].split('-')[0])-1;
@@ -131,7 +136,7 @@ function memo(toMemo){
 }
 function solve(){
   if(remain===0){
-    document.getElementById('passage').textContent='끝';
+    document.getElementById('passage').textContent=`<div class="shadow-boxing">총 <b>${cor+inc}</b>개의 문제 중 <b>${cor}</b>개를 맞추셨습니다!</div>`;
     document.getElementById('input').textContent='';
   }
   else{
@@ -180,10 +185,14 @@ function write(pas,ans){
   document.getElementById('input').innerHTML=`<div id="ans" class="option-boxing" style="padding-top:5px;"><input id="text" type="text"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`;
   document.querySelector('#check').addEventListener('click',checkClick);
   function checkClick(){
+    //정답
     if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '').toLowerCase()===ans.replace(/[\.,\?\!\s]/g, '').toLowerCase()){
+      cor++;
       document.getElementById('ans').className='correct-boxing';
     }
+    //오답
     else{
+      inc++;
       document.getElementById('ans').className='incorrect-boxing';
     }
     this.innerHTML=`<p style="text-align:center;">${ans}</p><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
@@ -207,7 +216,13 @@ function choose(pas,opt,ans){
   }
   document.querySelectorAll('.option-boxing').forEach(element=>{
     element.addEventListener('click',function(){
-      if(this.textContent!==ans){
+      //정답
+      if(this.textContent===ans){
+        cor++;
+      }
+      //오답
+      else{
+        inc++;
         this.className='incorrect-boxing';
       }
       document.getElementById(ans).className='correct-boxing';
