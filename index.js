@@ -1,5 +1,5 @@
 if(new URL(window.location.href).searchParams.get('lang')){
-	lessonsListSet();
+	lessonsDataSet();
 }
 else{
   langsListSet();
@@ -33,12 +33,12 @@ function langsListSet(){
         const lang=this.getAttribute('data-lang');
         langsListBox.innerHTML='';
         history.pushState(null,'',`?lang=${lang}`);
-        lessonsListSet();
+        lessonsDataSet();
       });
     });
   });
 }
-function lessonsListSet(){
+function lessonsDataSet(){
   fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
   .then(data1=>{
@@ -47,20 +47,7 @@ function lessonsListSet(){
     .then(response=>response.json())
     .then(data2=>{
       lessonsList=data2.values;
-      var lessonsListBox=document.getElementById('lessons_list');
-      lessonsList.forEach(row=>{
-        lessonsListBox.innerHTML+=`<div class="shadow-boxing" data-lesson=${row[0]}>
-          <h2 style="display:inline-block;">${row[0]}</h2>
-        </div>`;
-      });
-      document.querySelectorAll('.shadow-boxing').forEach(element=>{
-        element.addEventListener('click',function(){
-          const lesson=lessonsList[lessonsList.findIndex(row=>row[0]===this.getAttribute('data-lesson'))];
-          lessonsListBox.innerHTML='';
-          //history.pushState(null,'',`?lang=${lang}`);
-          lessonStart(lesson);
-        });
-      });
+      lessonsListSet();
     });
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/words!A:B?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
@@ -79,6 +66,23 @@ function lessonsListSet(){
     });
   });
 }
+function lessonsListSet(){
+  var lessonsListBox=document.getElementById('lessons_list');
+  lessonsList.forEach(row=>{
+    lessonsListBox.innerHTML+=`<div class="shadow-boxing" data-lesson=${row[0]}>
+      <h2 style="display:inline-block;">${row[0]}</h2>
+    </div>`;
+  });
+  document.querySelectorAll('.shadow-boxing').forEach(element=>{
+    element.addEventListener('click',function(){
+      const lesson=lessonsList[lessonsList.findIndex(row=>row[0]===this.getAttribute('data-lesson'))];
+      lessonsListBox.innerHTML='';
+      //history.pushState(null,'',`?lang=${lang}`);
+      lessonStart(lesson);
+    });
+  });
+}
+
 function lessonStart(lesson){
 	var passage=document.getElementById('passage');
   var toMemo=[];
@@ -136,8 +140,13 @@ function memo(toMemo){
 }
 function solve(){
   if(remain===0){
-    document.getElementById('passage').innerHTML=`<div class="shadow-boxing">총 <b>${cor+inc}</b>개의 문제 중 <b>${cor}</b>개를 맞추셨습니다!</div>`;
+    document.getElementById('passage').innerHTML=`<div class="shadow-boxing"><p style="text-align:center;margin-top:60px;">총 <b>${cor+inc}</b>개의 문제 중 <b>${cor}</b>개를 맞추셨습니다!</p></div><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
     document.getElementById('input').textContent='';
+    document.querySelector('#next').addEventListener('click',nextClick);
+    function nextClick(){
+      document.querySelector('#next').removeEventListener('click',nextClick);
+      lessonsListSet();
+    }
   }
   else{
     var type=Math.floor(Math.random()*3);
@@ -211,7 +220,7 @@ function choose(pas,opt,ans){
   document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;color:#282828;">${pas}</h2></div>`;
   document.getElementById('input').innerHTML='';
   while(opt.length>0){
-    document.getElementById('input').innerHTML+=`<div id="${opt[0]}" class="option-boxing">${opt[0]}</div>`;
+    document.getElementById('input').innerHTML+=`<div id="${opt[0]}" class="option-boxing" style="padding-left:20px;">${opt[0]}</div>`;
     opt=opt.slice(1);
   }
   document.querySelectorAll('.option-boxing').forEach(element=>{
