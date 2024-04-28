@@ -142,18 +142,10 @@ function solve(){
     if(limit[type]===0){
       type=(type+1)%3;
     }
-    var index;
-    if(noSeen[type].length>0){
-      do{
-        index=Math.floor(Math.random()*limit[type]);
-      }
-      while(!noSeen[type].includes(toSolve[type][index]));
-      noSeen[type]=[...noSeen[type].slice(0, noSeen[type].indexOf(toSolve[type][index])), ...noSeen[type].slice(noSeen[type].indexOf(toSolve[type][index])+1)];
+    var i=toSolve[type][Math.floor(Math.random()*toSolve.length)];
+    if(noSeen.length>0){
+      i=noSeen[type][Math.floor(Math.random()*noSeen.length)];
     }
-    else{
-      index=Math.floor(Math.random()*limit[type]);
-    }
-    var i=toSolve[type][index];
     var j='';
     var n=0;
     var rev=Math.floor(Math.random()*2);
