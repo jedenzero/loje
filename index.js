@@ -150,16 +150,20 @@ function solve(){
     }
   }
   else{
-    var type=Math.floor(Math.random()*3);
-    if(limit[type]===0){
-      type=(type+1)%3;
+    var type;
+    if([...noSeen[0],...noSeen[1],...noSeen[2]].length===0){
+      type=Math.floor(Math.random()*3);
+      var i=toSolve[type][Math.floor(Math.random()*toSolve[type].length)];
     }
-    if(limit[type]===0){
-      type=(type+1)%3;
-    }
-    var i=toSolve[type][Math.floor(Math.random()*toSolve[type].length)];
-    if(noSeen[type].length>0){
-      i=noSeen[type][Math.floor(Math.random()*noSeen[type].length)];
+    else{
+      type=Math.floor(Math.random()*3);
+      if(noSeen[type].length===0){
+        type++;
+      }
+      if(noSeen[type].length===0){
+        type++;
+      }
+      var i=noSeen[type][Math.floor(Math.random()*noSeen[type].length)];
       noSeen[type]=[...noSeen[type].slice(0,noSeen[type].indexOf(i)),...noSeen[type].slice(noSeen[type].indexOf(i)+1)];
     }
     var j='';
