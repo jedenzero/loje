@@ -171,7 +171,7 @@ function solve(){
     var rev=Math.floor(Math.random()*2);
     //문제 유형
     switch(Math.floor(Math.random()*2)){
-      case 0 : write(i[rev],i[1-rev]); break;
+      case 0 : write(i[rev],i[1-rev],type); break;
       case 1:
         if(toSolve[type].length>=4){
           var opt=[];
@@ -187,27 +187,47 @@ function solve(){
           choose(i[rev],opt,i[1-rev]);
         }
         else{
-          write(i[rev],i[1-rev]);
+          write(i[rev],i[1-rev],type);
         }
         break;
     }
     remain--;
   }
 }
-function write(pas,ans){
+function write(pas,ans,type){
   document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;margin-top:25px;color:#282828;">${pas}</h2></div>`;
   document.getElementById('input').innerHTML=`<div id="ans" class="option-boxing" style="padding-top:5px;"><input id="text" type="text"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`;
   document.querySelector('#check').addEventListener('click',checkClick);
   function checkClick(){
-    //정답
-    if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '').toLowerCase()===ans.replace(/[\.,\?\!\s]/g, '').toLowerCase()){
-      cor++;
-      document.getElementById('ans').className='correct-boxing';
+    if(type===2){
+      //정답
+      if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '').toLowerCase()===ans.replace(/[\.,\?\!\s]/g, '').toLowerCase()){
+        cor++;
+        document.getElementById('ans').className='correct-boxing';
+      }
+      //오답
+      else{
+        inc++;
+        document.getElementById('ans').className='incorrect-boxing';
+      }
     }
-    //오답
     else{
-      inc++;
-      document.getElementById('ans').className='incorrect-boxing';
+      var isAns=0;
+      ansSet=new Set(ans.split(/,\s*/));
+      inpSet=new Set(document.getElementById('text').value.split(/,\s*/));
+      for(el of inpSet){
+        //오답
+        if(!ansSet.has(el)){
+          isAns++;
+          inc++;
+          document.getElementById('ans').className='incorrect-boxing';
+          break;
+        }
+      };
+      if(isAns===0){
+        cor++;
+        document.getElementById('ans').className='correct-boxing';
+      }
     }
     this.innerHTML=`<p style="text-align:center;">${ans}</p><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
     document.querySelector('#check').removeEventListener('click',checkClick);
