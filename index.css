@@ -9,7 +9,7 @@
 @font-face{
     font-family:'IBMPlexSansKR-SemiBold';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-SemiBold.woff') format('woff');
-    font-weight:bold;
+    font-weight:600;
     font-style:normal;
 }
 
@@ -81,6 +81,9 @@ body{
 }
 a{
      text-decoration:none;
+}
+h1,h2,h3{
+    font-weight:300;
 }
 blockquote{
      margin-left:10px;
