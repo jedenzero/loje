@@ -7,14 +7,14 @@
     font-style:normal;
 }
 @font-face{
-    font-family:'IBMPlexSansKR-Bold';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Bold.woff') format('woff');
+    font-family:'IBMPlexSansKR-SemiBold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-SemiBold.woff') format('woff');
     font-weight:bold;
     font-style:normal;
 }
 
 body{
-     font-family:"Open Sans","IBMPlexSansKR-Regular","IBMPlexSansKR-Bold";
+     font-family:"Open Sans","IBMPlexSansKR-Regular","IBMPlexSansKR-SemiBold";
      color:#282828;
      font-weight:300;
      font-size:12px;
@@ -96,7 +96,7 @@ input{
      outline:none;
      text-align:center;
      font-size:20px;
-     font-family:"Open Sans","IBMPlexSansKR-Regular","IBMPlexSansKR-Bold";
+     font-family:"Open Sans","IBMPlexSansKR-Regular","IBMPlexSansKR-SemiBold";
      color:#282828;
      font-weight:300;
      background-color:#FAFAFA00;
