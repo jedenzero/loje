@@ -15,7 +15,7 @@ var cor=0;
 var inc=0;
 
 function langsListSet(){
-  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:E?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
+  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
   .then(data=>{
     langsList=data.values;
@@ -25,7 +25,7 @@ function langsListSet(){
       i+=`<div class="shadow-boxing" data-lang="${row[0]}">
         <sup>${row[0]}</sup><h2 style="display:inline-block;">${row[1]}</h2>
         <p>${row[2]}</p>
-        <span style="margin-top:auto;margin-left:auto;color:#C8C8C8;"><i>${row[3]||''}</i></span>
+        <span style="display:inline-block;margin-top:auto;margin-left:auto;color:#C8C8C8;"><i>${row[3]||''}</i></span>
       </div>`;
     });
     langsListBox.innerHTML=i;
@@ -40,7 +40,7 @@ function langsListSet(){
   });
 }
 function lessonsDataSet(){
-  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
+  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:E?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
   .then(data1=>{
     let lang=data1.values[data1.values.findIndex(row=>row[0]===new URL(window.location.href).searchParams.get('lang'))][4];
