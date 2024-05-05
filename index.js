@@ -15,7 +15,7 @@ var cor=0;
 var inc=0;
 
 function langsListSet(){
-  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
+  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:E?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
   .then(data=>{
     langsList=data.values;
