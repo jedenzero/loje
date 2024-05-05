@@ -201,13 +201,19 @@ function write(pas,ans,type){
   document.querySelector('#check').addEventListener('click',checkClick);
   function checkClick(){
     if(type===2){
+      var isAns=0;
+      ansSet=new Set(ans.split(/\/\//).map((el)=>el.replace(/[\.,\?\!\s]/g, '')));
+      for(el of ansSet){
       //정답
-      if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '').toLowerCase()===ans.replace(/[\.,\?\!\s]/g, '').toLowerCase()){
+      if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '')===el){
+        isAns++;
         cor++;
         document.getElementById('ans').className='correct-boxing';
+        break;
+      }
       }
       //오답
-      else{
+      if(isAns==0){
         inc++;
         document.getElementById('ans').className='incorrect-boxing';
       }
