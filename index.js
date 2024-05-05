@@ -25,7 +25,7 @@ function langsListSet(){
       i+=`<div class="shadow-boxing" data-lang="${row[0]}">
         <sup>${row[0]}</sup><h2 style="display:inline-block;">${row[1]}</h2>
         <p>${row[2]}</p>
-        <div style="margin-top:auto;margin-left:auto;color:#424242;"><i>${row[3]||''}</i></div>
+        <span style="margin-top:auto;margin-left:auto;color:#C8C8C8;"><i>${row[3]||''}</i></span>
       </div>`;
     });
     langsListBox.innerHTML=i;
