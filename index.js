@@ -196,7 +196,7 @@ function solve(){
   }
 }
 function write(pas,ans,type){
-  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;margin-top:25px;color:#282828;">${pas}</h2></div>`;
+  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;margin-top:25px;color:#282828;">${pas.split('//')[0]}</h2></div>`;
   document.getElementById('input').innerHTML=`<div id="ans" class="option-boxing" style="padding-top:5px;"><input id="text" type="text"></div><div id="check" style="margin-top:25px;text-align:center;"><i class="fi fi-br-check"></i></div>`;
   document.querySelector('#check').addEventListener('click',checkClick);
   function checkClick(){
@@ -249,16 +249,16 @@ function write(pas,ans,type){
 function choose(pas,opt,ans){
   var ran=Math.floor(Math.random()*4);
   opt=[...opt.slice(0,ran),ans,...opt.slice(ran)];
-  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;margin-top:25px;color:#282828;">${pas}</h2></div>`;
+  document.getElementById('passage').innerHTML=`<div class="passage-boxing" style="text-align:center;"><h2 style="display:inline-block;margin-top:25px;color:#282828;">${pas.split('//')[0]}</h2></div>`;
   document.getElementById('input').innerHTML='';
   while(opt.length>0){
-    document.getElementById('input').innerHTML+=`<div id="${opt[0]}" class="option-boxing" style="padding-left:20px;">${opt[0]}</div>`;
+    document.getElementById('input').innerHTML+=`<div id="${opt[0]}" class="option-boxing" style="padding-left:20px;">${opt[0].split('//')[0]}</div>`;
     opt=opt.slice(1);
   }
   document.querySelectorAll('.option-boxing').forEach(element=>{
     element.addEventListener('click',function(){
       //정답
-      if(this.textContent===ans){
+      if(this.id===ans){
         cor++;
       }
       //오답
