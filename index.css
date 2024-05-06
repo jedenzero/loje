@@ -94,3 +94,11 @@ input{
      font-weight:300;
      background-color:#FAFAFA00;
 }
+table{
+     border-spacing:0;
+     margin:0 auto;
+}
+td{
+     padding:10px;
+     border-bottom:1px solid #F0F0F0;
+}
