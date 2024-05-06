@@ -70,13 +70,13 @@ function lessonsDataSet(){
 function lessonsListSet(){
   var lessonsListBox=document.getElementById('lessons_list');
   lessonsList.forEach(row=>{
-    lessonsListBox.innerHTML+=`<div class="shadow-boxing">
+    lessonsListBox.innerHTML+=`<div class="shadow-boxing"  data-lesson=${encodeURIComponent(row[0])}>
       <h2 style="display:inline-block;">${row[0]}</h2>
     </div>`;
   });
   document.querySelectorAll('.shadow-boxing').forEach(element=>{
     element.addEventListener('click',function(){
-      const lesson=lessonsList[lessonsList.findIndex(row=>row[0]===this.textContent)];
+      const lesson=lessonsList[lessonsList.findIndex(row=>row[0]===decodeURIComponent(this.getAttribute('data-lesson')))];
       lessonsListBox.innerHTML='';
       //history.pushState(null,'',`?lang=${lang}`);
       lessonStart(lesson);
