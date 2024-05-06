@@ -96,12 +96,11 @@ input{
      background-color:#FAFAFA00;
 }
 table{
+     width:200px;
      border-spacing:0;
      margin:0 auto;
+     text-align:center;
 }
 td{
-     padding:10px;
-     padding-top:20px;
-     padding-left:20px;
-     border-bottom:1px solid #969696;
+     border-bottom:1px solid #F0F0F0;
 }
