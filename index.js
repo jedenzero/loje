@@ -70,13 +70,13 @@ function lessonsDataSet(){
 function lessonsListSet(){
   var lessonsListBox=document.getElementById('lessons_list');
   lessonsList.forEach(row=>{
-    lessonsListBox.innerHTML+=`<div class="shadow-boxing" data-lesson=${row[0]}>
+    lessonsListBox.innerHTML+=`<div class="shadow-boxing">
       <h2 style="display:inline-block;">${row[0]}</h2>
     </div>`;
   });
   document.querySelectorAll('.shadow-boxing').forEach(element=>{
     element.addEventListener('click',function(){
-      const lesson=lessonsList[lessonsList.findIndex(row=>row[0]===this.getAttribute('data-lesson'))];
+      const lesson=lessonsList[lessonsList.findIndex(row=>row[0]===this.textContent)];
       lessonsListBox.innerHTML='';
       //history.pushState(null,'',`?lang=${lang}`);
       lessonStart(lesson);
@@ -160,9 +160,11 @@ function solve(){
       type=Math.floor(Math.random()*3);
       if(noSeen[type].length===0){
         type++;
+	type=type%3;
       }
       if(noSeen[type].length===0){
         type++;
+	type=type%3;
       }
       var i=noSeen[type][Math.floor(Math.random()*noSeen[type].length)];
       noSeen[type]=[...noSeen[type].slice(0,noSeen[type].indexOf(i)),...noSeen[type].slice(noSeen[type].indexOf(i)+1)];
