@@ -238,7 +238,7 @@ function write(pas,ans,type){
         document.getElementById('ans').className='correct-boxing';
       }
     }
-    this.innerHTML=`<p style="text-align:center;">${ans}</p><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
+    this.innerHTML=`<p style="text-align:center;">${ans.split('//')[0]}</p><div id="next" style="margin-top:25px;text-align:center;"><i class="fi fi-br-arrow-right"></i></div>`;
     document.querySelector('#check').removeEventListener('click',checkClick);
     document.querySelector('#next').addEventListener('click',nextClick);
   }
