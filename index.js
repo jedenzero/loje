@@ -47,6 +47,10 @@ function langsListSet(){
   });
 }
 function lessonsDataSet(){
+  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:F?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
+  .then(response=>response.json())
+  .then(data1=>{
+    langsList=data1.values;
     let lang=langsList[langsList.findIndex(row=>row[0]===new URL(window.location.href).searchParams.get('lang'))][5];
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/lessons!A:F?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
@@ -69,15 +73,16 @@ function lessonsDataSet(){
     .then(data5=>{
       wordsList[2]=data5.values;
     });
+  });
 }
 function lessonsListSet(){
   var lessonsListBox=document.getElementById('lessons_list');
   lessonsList.forEach(row=>{
-    lessonsListBox.innerHTML+=`<div class="shadow-boxing"  data-lesson=${encodeURIComponent(row[0])}>
-      <h2 style="display:inline-block;">${row[0]}</h2>
+    lessonsListBox.innerHTML+=`<div class="lesson-boxing"  data-lesson=${encodeURIComponent(row[0])}>
+      <span style="margin-left:10px;">${row[0]}</>
     </div>`;
   });
-  document.querySelectorAll('.shadow-boxing').forEach(element=>{
+  document.querySelectorAll('.lesson-boxing').forEach(element=>{
     element.addEventListener('click',function(){
       const lesson=lessonsList[lessonsList.findIndex(row=>row[0]===decodeURIComponent(this.getAttribute('data-lesson')))];
       lessonsListBox.innerHTML='';
