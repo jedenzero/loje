@@ -14,15 +14,32 @@ body{
      line-height:150%;
      -ms-overflow-style:none;
 }
+.image-boxing{
+     position:relative;
+     overflow:hidden;
+     height:150px;
+}
+.image-boxing::after{
+     content:'';
+     position:absolute;
+     top:0;
+     bottom:0;
+     left:0;
+     right:0;
+     background:linear-gradient(to bottom,#28282800 0%,#28282896 100%);
+}
 .shadow-boxing{
      box-sizing:border-box;
+     overflow:hidden;
      width:300px;
-     height:200px;
+     min-height:200px;
      margin:0 auto;
      margin-bottom:25px;
-     padding:20px;
      border-radius:25px;
      box-shadow:#8C96A033 0px 2px 20px;
+}
+.lesson-boxing{
+     
 }
 .passage-boxing{
      box-sizing:border-box;
