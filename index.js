@@ -47,10 +47,7 @@ function langsListSet(){
   });
 }
 function lessonsDataSet(){
-  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:E?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
-  .then(response=>response.json())
-  .then(data1=>{
-    let lang=data1.values[data1.values.findIndex(row=>row[0]===new URL(window.location.href).searchParams.get('lang'))][5];
+    let lang=langsList[langsList.findIndex(row=>row[0]===new URL(window.location.href).searchParams.get('lang'))][5];
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${lang}/values/lessons!A:F?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk`)
     .then(response=>response.json())
     .then(data2=>{
@@ -72,7 +69,6 @@ function lessonsDataSet(){
     .then(data5=>{
       wordsList[2]=data5.values;
     });
-  });
 }
 function lessonsListSet(){
   var lessonsListBox=document.getElementById('lessons_list');
