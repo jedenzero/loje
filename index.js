@@ -15,18 +15,20 @@ var cor=0;
 var inc=0;
 
 function langsListSet(){
-  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:D?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
+  fetch('https://sheets.googleapis.com/v4/spreadsheets/14kwQv_6Krk9wAlf1-d6exL7X-9nRsRZqppNCTuCw_rM/values/langs!A:F?key=AIzaSyATLeHQh6kM0LWRJjLg8CmzoSdnntFrmFk')
   .then(response=>response.json())
   .then(data=>{
     langsList=data.values;
     const langsListBox = document.getElementById('langs_list');
     let i='';
     langsList.forEach(row => {
-      i+=`<div class="shadow-boxing" data-lang="${row[0]}">
-        <div class="image-boxing">
+      i+=`<div class="shadow-boxing" data-lang="${row[0]}">`;
+      if(row[4]){
+      i+=`<div class="image-boxing">
         <img src="${row[4]||''}" style="width:100%;">
-        </div>
-        <div style="padding:10px;">
+        </div>`;
+      }
+      i+=`<div style="padding:10px;">
         <sup>${row[0]}</sup><h2 style="display:inline-block;">${row[1]}</h2>
         <p>${row[2]}</p>
         <div style="margin:0;margin-top:auto;padding:0;padding-right:10px;color:#969696;text-align:right;"><i>${row[3]||''}</i></div>
