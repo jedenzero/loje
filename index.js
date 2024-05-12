@@ -77,8 +77,31 @@ function lessonsDataSet(){
 }
 function lessonsListSet(){
   var lessonsListBox=document.getElementById('lessons_list');
+  var color=[255,180,0]
+  var step=1;
   lessonsList.forEach(row=>{
-    lessonsListBox.innerHTML+=`<div class="lesson-boxing"  data-lesson=${encodeURIComponent(row[0])}>
+    switch(step){
+      case 1: color[0]-=51/8;
+              color[2]+=16/8;
+              if(color[0]===0){
+                step++;
+              }
+              break;
+      case 2: color[1]-=20/8;
+              color[2]+=35/8;
+              if(color[1]===0){
+                step++;
+              }
+              break;
+      case 3: color[0]+=51/8;
+              color[1]-=16/8;
+              color[2]-=35/8;
+              if(color[0]===255){
+                step++;
+              }
+              break;
+    }
+    lessonsListBox.innerHTML+=`<div class="lesson-boxing"  data-lesson=${encodeURIComponent(row[0])} style="background-color:rgb(${color[0]},${color[1]},${color[2]},50)">
       <span style="margin-left:10px;">${row[0]}</>
     </div>`;
   });
