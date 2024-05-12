@@ -26,7 +26,7 @@ body{
      bottom:0;
      left:0;
      right:0;
-     background:linear-gradient(to bottom,#28282800 0%,#28282896 100%);
+     background:linear-gradient(to bottom,#28282800 0%,#28282850 100%);
 }
 .shadow-boxing{
      box-sizing:border-box;
@@ -39,7 +39,14 @@ body{
      box-shadow:#8C96A033 0px 2px 20px;
 }
 .lesson-boxing{
-     
+     box-sizing:border-box;
+     width:300px;
+     height:40px;
+     margin:0 auto;
+     margin-bottom:10px;
+     padding:10px;
+     border-radius:20px;
+     font-size:16px;
 }
 .passage-boxing{
      box-sizing:border-box;
