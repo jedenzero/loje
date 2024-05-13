@@ -101,7 +101,7 @@ function lessonsListSet(){
               }
               break;
     }
-    lessonsListBox.innerHTML+=`<div class="lesson-boxing"  data-lesson=${encodeURIComponent(row[0])} style="background-color:rgb(${color[0]},${color[1]},${color[2]},50)">
+    lessonsListBox.innerHTML+=`<div class="lesson-boxing"  data-lesson=${encodeURIComponent(row[0])} style="background-color:rgb(${color[0]},${color[1]},${color[2]},0.5)">
       <span style="margin-left:10px;">${row[0]}</>
     </div>`;
   });
