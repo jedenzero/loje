@@ -81,21 +81,21 @@ function lessonsListSet(){
   var step=1;
   lessonsList.forEach(row=>{
     switch(step){
-      case 1: color[0]-=51/8;
-              color[2]+=16/8;
+      case 1: color[0]-=51/4;
+              color[2]+=16/4;
               if(color[0]===0){
                 step++;
               }
               break;
-      case 2: color[1]-=20/8;
-              color[2]+=35/8;
+      case 2: color[1]-=20/4;
+              color[2]+=35/4;
               if(color[1]===0){
                 step++;
               }
               break;
-      case 3: color[0]+=51/8;
-              color[1]-=16/8;
-              color[2]-=35/8;
+      case 3: color[0]+=51/4;
+              color[1]-=16/4;
+              color[2]-=35/4;
               if(color[0]===255){
                 step++;
               }
