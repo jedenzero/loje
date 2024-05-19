@@ -235,13 +235,14 @@ function write(pas,ans,type){
   function checkClick(){
     if(type===2){
       var isAns=0;
-      ansSet=new Set(ans.split(/\/\//).map((el)=>el.replace(/[\.,\?\!\s]/g, '')));
+      ansSet=new Set(ans.split(/\/\//).map((el)=>el.replace(/[\.,\?\!\s]/g, '').toLowerCase()));
       for(el of ansSet){
       //정답
-      if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '')===el){
+      if(document.getElementById('text').value.replace(/[\.,\?\!\s]/g, '').toLowerCase()===el){
         isAns++;
         cor++;
         document.getElementById('ans').className='correct-boxing';
+        document.getElementById('ans').disabled=true;
         break;
       }
       }
